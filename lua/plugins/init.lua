@@ -9,21 +9,25 @@ return {
   {
     "neovim/nvim-lspconfig",
     config = function()
-      require "configs.lspconfig"
+      vim.lsp.config('rust_analyzer', {
+      -- Server-specific settings. See `:help lsp-quickstart`
+      settings = {
+        ['rust-analyzer'] = {},
+      },
+    })
     end,
   },
-
   {
     'mrcjkb/rustaceanvim',
-    version = '^5', -- Recommended
-    lazy = false, -- This plugin is already lazy
+    version = '^6', -- Recommended
+    lazy = false, -- This plugin is already lazy 
     ft = "rust",
     config = function ()
       local mason_registry = require('mason-registry')
       local codelldb = mason_registry.get_package("codelldb")
-      local extension_path = codelldb:get_install_path() .. "/extension/"
+      local extension_path = "/home/axel/.vscode/extensions/vadimcn.vscode-lldb-1.11.8/"
       local codelldb_path = extension_path .. "adapter/codelldb"
-      local liblldb_path = extension_path.. "lldb/lib/liblldb.dylib"
+      local liblldb_path = extension_path.. "lldb/lib/liblldb.so"
 	-- If you are on Linux, replace the line above with the line below:
 	-- local liblldb_path = extension_path .. "lldb/lib/liblldb.so"
       local cfg = require('rustaceanvim.config')
@@ -35,7 +39,6 @@ return {
       }
     end
   },
-
   {
     'rust-lang/rust.vim',
     ft = "rust",
@@ -87,6 +90,8 @@ return {
       })
     end
   },
+  -- test new blink
+  -- { import = "nvchad.blink.lazyspec" },
 
   -- {
   -- 	"nvim-treesitter/nvim-treesitter",
